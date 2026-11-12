@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnSpace | English for Everyday Life</title>
+<style>
+:root{--ink:#173b35;--muted:#6c817b;--green:#167d68;--mint:#eaf4f1;--cream:#fbfaf6;--line:#e4ece8;--white:#fff;--orange:#f0b66d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,a,input{font:inherit}a{color:inherit;text-decoration:none}
+
+/* Login Screen Styles */
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(120deg,#e8f3ef,#fbfaf6)}
+.login-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:36px 32px;width:100%;max-width:400px;box-shadow:0 20px 45px #173b3510}
+.login-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;margin-bottom:24px}
+.login-card h2{margin:0 0 6px;font-size:24px;letter-spacing:-0.5px}
+.login-card p{margin:0 0 22px;font-size:13px;color:var(--muted);line-height:1.5}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.field input{width:100%;padding:11px 14px;border:1px solid #d5e2dd;border-radius:10px;font-size:14px;outline:none;transition:.2s}
+.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px #167d6818}
+.login-btn{width:100%;background:var(--green);color:#fff;border:0;padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;margin-top:6px;transition:.2s}
+.login-btn:hover{background:#126856}
+.login-err{color:#c93b3b;background:#fdf0f0;border:1px solid #f5c6c6;padding:9px 12px;border-radius:8px;font-size:12px;margin-bottom:14px}
+.login-hint{margin-top:16px;text-align:center;font-size:11px;color:var(--muted);background:#f4f8f6;padding:8px;border-radius:8px}
+
+/* Dashboard Styles */
+.layout{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside{background:#fff;border-right:1px solid var(--line);padding:26px 18px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;margin:0 8px 38px}.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:19px}
+.nav-label{font-size:10px;letter-spacing:1.5px;color:#9aaba5;font-weight:800;margin:24px 12px 10px}.nav a{display:flex;gap:12px;align-items:center;padding:12px;border-radius:11px;color:#647871;font-size:14px;margin:3px 0}.nav a.active,.nav a:hover{background:var(--mint);color:var(--green);font-weight:700}
+.side-bottom{margin-top:auto}
+.side-note{background:#f4f8f6;padding:15px;border-radius:14px;font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.logout-btn{width:100%;border:1px solid var(--line);background:#fff;color:#647871;padding:10px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+.logout-btn:hover{background:#fdf0f0;color:#c93b3b;border-color:#f5c6c6}
+
+main{max-width:1200px;width:100%;margin:auto;padding:28px 42px 70px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.crumb{font-size:13px;color:var(--muted)}.user{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700}.avatar{width:34px;height:34px;border-radius:50%;background:#dcece6;display:grid;place-items:center;color:var(--green);text-transform:uppercase}
+.hero{background:linear-gradient(115deg,#e8f3ef,#f5f4e9);border-radius:24px;padding:34px 38px;display:grid;grid-template-columns:1.3fr .7fr;gap:20px;overflow:hidden;position:relative}.eyebrow{font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--green)}h1{font-size:clamp(30px,4vw,47px);line-height:1.08;letter-spacing:-1.8px;margin:13px 0}.hero p{color:#60766e;max-width:510px;line-height:1.7;font-size:14px}.primary{background:var(--green);color:#fff;border:0;padding:12px 18px;border-radius:10px;font-weight:700;cursor:pointer;display:inline-block;margin-top:9px}.hero-art{display:flex;align-items:center;justify-content:center;font-size:100px;min-height:170px}.hero-art span{background:#fff9;border-radius:32px;padding:20px 28px;transform:rotate(5deg);box-shadow:0 18px 35px #476d5c18}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0 34px}.stat{background:#fff;border:1px solid var(--line);padding:16px 18px;border-radius:15px}.stat strong{display:block;font-size:22px}.stat small{color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:28px 0 15px}.section-head h2{font-size:21px;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:5px 0 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px;transition:.2s}.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #23483b0c}.card-icon{width:48px;height:48px;border-radius:14px;background:var(--mint);display:grid;place-items:center;font-size:24px;margin-bottom:14px}.tag{font-size:10px;letter-spacing:.8px;color:var(--green);font-weight:800}.card h3{margin:8px 0;font-size:16px}.card p{font-size:12px;line-height:1.6;color:var(--muted);min-height:38px}.card button{border:0;background:none;color:var(--green);font-weight:800;font-size:12px;padding:8px 0;cursor:pointer}
+.lesson-panel{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px}.lesson-title{display:flex;justify-content:space-between;align-items:start;gap:15px}.lesson-title h2{margin:5px 0;font-size:22px}.lesson-title p{color:var(--muted);font-size:13px;margin:0}.pill{background:#fff3df;color:#98631e;padding:7px 10px;border-radius:30px;font-size:11px;font-weight:800;white-space:nowrap}
+.lesson-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.tab{border:1px solid var(--line);background:#fff;color:#61756e;border-radius:9px;padding:9px 13px;font-size:12px;font-weight:700;cursor:pointer}.tab.active{background:var(--green);border-color:var(--green);color:#fff}
+.content-area{background:#f8faf8;border-radius:15px;padding:20px;min-height:220px}.content-area h3{margin:0 0 8px}.content-area p{color:#657971;font-size:13px;line-height:1.65}.word-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.word{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}.word b{display:block;font-size:15px}.word span{font-size:11px;color:var(--muted)}
+.h5p-box{background:#fff;border:1.5px dashed #9bbeb1;border-radius:14px;padding:22px;text-align:center;margin-top:14px}.h5p-box .puzzle{font-size:34px}.h5p-box h4{margin:8px 0}.h5p-box p{max-width:560px;margin:0 auto 12px}.embed{width:100%;min-height:690px;border:0;border-radius:12px;background:#fff}
+.yt-wrap{position:relative;width:100%;aspect-ratio:16/9;max-width:850px;margin:0 auto;border-radius:14px;overflow:hidden;background:#000}.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+footer{text-align:center;color:#91a29c;font-size:11px;padding:30px 0 0}
+.hidden{display:none!important}
+@media(max-width:850px){.layout{grid-template-columns:1fr}aside{position:relative;height:auto;padding:14px 18px;border-right:0;border-bottom:1px solid var(--line)}.brand{margin:0}.nav{display:flex;overflow:auto;margin-top:12px}.nav-label,.side-note{display:none}.side-bottom{margin-top:10px}.nav a{white-space:nowrap;padding:9px 11px}main{padding:22px 18px 50px}.hero{padding:25px;grid-template-columns:1fr}.hero-art{display:none}.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:18px}.hero{border-radius:18px}.lesson-panel{padding:16px}.word-grid{grid-template-columns:1fr 1fr}.topbar{margin-bottom:18px}}
+</style>
+</head>
+<body>
+
+<!-- HALAMAN LOGIN -->
+<div class="login-wrap" id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand"><div class="brand-mark">L</div> LearnSpace</div>
+    <h2>Welcome back</h2>
+    <p>Please sign in with your username and password to access your English dashboard.</p>
+    <div class="login-err hidden" id="loginError">Invalid username or password.</div>
+    <form onsubmit="handleLogin(event)">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="login-btn">Sign In →</button>
+    </form>
+    <div class="login-hint">Demo login — Username: <b>student</b> | Password: <b>12345</b></div>
+  </div>
+</div>
+
+<!-- DASHBOARD UTAMA -->
+<div class="layout hidden" id="dashboardScreen">
+<aside>
+  <div>
+    <div class="brand"><div class="brand-mark">L</div> LearnSpace</div>
+    <div class="nav-label">LEARNING SPACE</div>
+    <nav class="nav">
+      <a class="active" href="#home">⌂ &nbsp; Overview</a>
+      <a href="#modules">▤ &nbsp; Modules</a>
+      <a href="#practice">✣ &nbsp; Practice</a>
+      <a href="#assessment">✓ &nbsp; Assessment</a>
+    </nav>
+  </div>
+  <div class="side-bottom">
+    <div class="side-note"><b>Keep exploring!</b><br>Small steps every day can make a big difference in your English journey.</div>
+    <button class="logout-btn" onclick="handleLogout()">Log out</button>
+  </div>
+</aside>
+<main id="home">
+  <div class="topbar">
+    <div class="crumb">My learning space&nbsp; / &nbsp;English</div>
+    <div class="user"><div class="avatar" id="userAvatar">S</div> <span id="userDisplay">Student</span></div>
+  </div>
+  <section class="hero">
+    <div><div class="eyebrow">ENGLISH • BEGINNER FRIENDLY</div><h1>English for<br>Everyday Life.</h1><p>Build confidence in everyday English through useful vocabulary, simple conversations, and interactive challenges.</p><a class="primary" href="#modules">Explore lessons&nbsp; →</a></div>
+    <div class="hero-art"><span>💬 📚</span></div>
+  </section>
+  <section class="stats">
+    <div class="stat"><strong>4</strong><small>Learning modules</small></div>
+    <div class="stat"><strong>6</strong><small>Interactive slots</small></div>
+    <div class="stat"><strong>A1–A2</strong><small>Suggested level</small></div>
+  </section>
+  <div class="section-head" id="modules"><div><h2>Explore your modules</h2><p>Choose a topic and learn at your own pace.</p></div></div>
+  <div class="cards">
+    <article class="card"><div class="card-icon">👋</div><div class="tag">MODULE 01 · GREETINGS</div><h3>Meet & Greet</h3><p>Say hello, introduce yourself, and ask simple questions.</p><button onclick="openLesson('greetings')">Open module →</button></article>
+    <article class="card"><div class="card-icon">🧭</div><div class="tag">MODULE 02 · DAILY LIFE</div><h3>Daily Routines</h3><p>Talk about your day, habits, and everyday activities.</p><button onclick="openLesson('routines')">Open module →</button></article>
+    <article class="card"><div class="card-icon">🍽️</div><div class="tag">MODULE 03 · FOOD</div><h3>Ordering Food</h3><p>Learn food vocabulary and useful expressions at a café.</p><button onclick="openLesson('food')">Open module →</button></article>
+  </div>
+  <div class="section-head" id="practice"><div><h2>Practice zone</h2><p>Try short activities to strengthen what you have learned.</p></div></div>
+  <div class="cards">
+    <article class="card"><div class="card-icon">🧩</div><div class="tag">INTERACTIVE ACTIVITY</div><h3>Match the Words</h3><p>Connect everyday words with their meanings or pictures.</p><button onclick="openActivity('match')">Open activity →</button></article>
+    <article class="card"><div class="card-icon">🎧</div><div class="tag">VIDEO LISTENING</div><h3>Listening </h3><p>Listen to a short dialogue and check your understanding.</p><button onclick="openActivity('listen')">Open activity →</button></article>
+    <article class="card"><div class="card-icon">✍️</div><div class="tag">INTERACTIVE ACTIVITY</div><h3>Quick Check</h3><p>Answer a short set of questions about the lesson.</p><button onclick="openActivity('quiz')">Open activity →</button></article>
+  </div>
+  <section class="lesson-panel" id="lessonPanel">
+    <div class="lesson-title"><div><div class="eyebrow">YOUR LEARNING CONTENT</div><h2 id="panelTitle">Start with a simple introduction</h2><p id="panelDesc">Select a module above to see its learning content and interactive activity.</p></div><span class="pill">A1–A2 LEVEL</span></div>
+    <div class="lesson-tabs">
+      <button class="tab" onclick="showTab('activity',this)">Activity</button>
+      <button class="tab" onclick="showTab('reflection',this)">Reflect</button>
+    </div>
+    <div class="content-area" id="material">
+      <h3>Welcome to LearnSpace!</h3><p>This space is ready for your first English lesson. Choose <b>Meet & Greet</b>, <b>Daily Routines</b>, or <b>Ordering Food</b> above. Each module includes a short learning focus and a dedicated interactive activity area.</p>
+      <div class="word-grid"><div class="word"><b>Hello!</b><span>A friendly greeting</span></div><div class="word"><b>How are you?</b><span>Ask about someone's feeling</span></div><div class="word"><b>Nice to meet you.</b><span>After an introduction</span></div></div>
+    </div>
+    <div class="content-area hidden" id="activity">
+      <div class="h5p-box"><div class="puzzle">🧩</div><h4>Interactive activity will appear here</h4><p>Select a module or practice card above to start the interactive exercise.</p></div>
+    </div>
+    <div class="content-area hidden" id="reflection">
+      <h3>Think about your learning</h3><p>What new word or expression did you learn today? Where could you use it in real life?</p><textarea style="width:100%;min-height:90px;border:1px solid #dce8e2;border-radius:10px;padding:12px;font:inherit" placeholder="Write your reflection here..."></textarea>
+    </div>
+  </section>
+  <section class="lesson-panel" id="assessment">
+    <div class="eyebrow">CHECK YOUR UNDERSTANDING</div><h2 style="margin:7px 0">Ready for a quick challenge?</h2><p style="color:var(--muted);font-size:13px">Your Question Set can be embedded in this assessment area.</p>
+    <div class="h5p-box"><div class="puzzle">🏁</div><h4>Final English Check</h4><p>Complete a short review covering greetings, daily routines, and ordering food.</p><button class="primary" onclick="openActivity('quiz')">Start assessment</button></div>
+  </section>
+  <footer>LearnSpace · English for Everyday Life · Learn something new every day.</footer>
+</main>
+</div>
+
+<script>
+// Pengaturan Akun Login Sederhana
+const VALID_USER = "qisa";
+const VALID_PASS = "12345";
+
+function handleLogin(e){
+  e.preventDefault();
+  const user = document.getElementById('username').value.trim();
+  const pass = document.getElementById('password').value;
+  const err = document.getElementById('loginError');
+
+  if(user.toLowerCase() === VALID_USER && pass === VALID_PASS){
+    err.classList.add('hidden');
+    document.getElementById('userDisplay').textContent = user.charAt(0).toUpperCase() + user.slice(1);
+    document.getElementById('userAvatar').textContent = user.charAt(0).toUpperCase();
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('dashboardScreen').classList.remove('hidden');
+    sessionStorage.setItem('learnspace_user', user);
+  } else {
+    err.classList.remove('hidden');
+  }
+}
+
+function handleLogout(){
+  sessionStorage.removeItem('learnspace_user');
+  document.getElementById('password').value = '';
+  document.getElementById('dashboardScreen').classList.add('hidden');
+  document.getElementById('loginScreen').classList.remove('hidden');
+}
+
+// Cek sesi login saat halaman dimuat ulang
+window.addEventListener('DOMContentLoaded', () => {
+  const savedUser = sessionStorage.getItem('learnspace_user');
+  if(savedUser){
+    document.getElementById('userDisplay').textContent = savedUser.charAt(0).toUpperCase() + savedUser.slice(1);
+    document.getElementById('userAvatar').textContent = savedUser.charAt(0).toUpperCase();
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('dashboardScreen').classList.remove('hidden');
+  }
+});
+
+// URL Embed untuk setiap modul & latihan
+const H5P_EMBEDS = {
+  greetings: "https://universitaspendidikanindonesia2.h5p.com/content/1293059237665825419/embed",
+  routines: "https://www.educaplay.com/game/31502641-daily_routines_quiz.html",
+  food: "https://www.educaplay.com/game/31502779-at_the_cafe_ordering_food.html",
+  match: "https://www.educaplay.com/game/31503106-everyday_expressions_match.html",
+  listen: "https://www.youtube.com/embed/1m4NDlOAzyg?si=DDnkTiGKRQ19l9OC",
+  quiz: "https://www.educaplay.com/game/31503788-final_english_check_everyday_life_15_questions.html"
+};
+
+const lessons = {
+ greetings:{title:"Meet & Greet",desc:"Learn to greet people and introduce yourself.",words:[["Hello / Hi","A friendly greeting"],["My name is…","Introduce your name"],["Nice to meet you.","A polite expression"]],sample:"Hello! My name is Alex. What's your name?"},
+ routines:{title:"Daily Routines",desc:"Talk about habits and activities in your day.",words:[["Wake up","Stop sleeping"],["Have breakfast","Eat the morning meal"],["Go to work / school","Travel to your workplace or school"]],sample:"I wake up at 6 a.m. Then, I have breakfast."},
+ food:{title:"Ordering Food",desc:"Use simple expressions when ordering at a café.",words:[["I'd like…","A polite way to order"],["Menu","A list of food and drinks"],["Anything else?","Ask if someone wants more"]],sample:"I'd like a chicken sandwich and a glass of water, please."}
+};
+
+function openLesson(id){
+ const x=lessons[id];document.getElementById('panelTitle').textContent=x.title;document.getElementById('panelDesc').textContent=x.desc;
+ document.getElementById('material').innerHTML='<h3>Key expressions</h3><p>'+x.sample+'</p><div class="word-grid">'+x.words.map(w=>'<div class="word"><b>'+w[0]+'</b><span>'+w[1]+'</span></div>').join('')+'</div>';
+ mountH5P(id);document.getElementById('lessonPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function openActivity(id){
+ document.getElementById('panelTitle').textContent=({match:'Match the Words',listen:'Listen & Choose',quiz:'Quick Check'})[id];
+ document.getElementById('panelDesc').textContent=id==='listen'?'Watch and listen carefully to the video below.':'Complete this interactive activity.';
+ mountH5P(id);showTab('activity',document.querySelectorAll('.tab')[1]);document.getElementById('lessonPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function mountH5P(id){
+ const area=document.getElementById('activity');const url=H5P_EMBEDS[id];
+ if(!url){
+   area.innerHTML='<div class="h5p-box"><div class="puzzle">🧩</div><h4>Activity slot: '+id+'</h4><p>No embed URL has been added yet. Publish the matching activity, copy its embed URL, and add it to <code>H5P_EMBEDS</code> in this file.</p></div>';
+   return;
+ }
+ if(url.includes('youtube.com/embed')){
+   area.innerHTML='<div class="yt-wrap"><iframe src="'+url+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>';
+ } else {
+   area.innerHTML='<iframe class="embed" src="'+url+'" width="795" height="690" frameborder="0" allowfullscreen="allowfullscreen" allow="fullscreen; autoplay *; geolocation *; microphone *; camera *; midi *; encrypted-media *; allow-top-navigation-by-user-activation" loading="lazy" title="Interactive activity"></iframe>';
+ }
+}
+
+function showTab(which,btn){
+ ['material','activity','reflection'].forEach(id=>document.getElementById(id).classList.toggle('hidden',id!==which));
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');
+}
+</script>
+<script src="https://universitaspendidikanindonesia2.h5p.com/js/h5p-resizer.js" charset="UTF-8"></script>
+</body>
+</html>
